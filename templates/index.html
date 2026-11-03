@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero wrap" aria-labelledby="name">
+  {% include "partials/sunburst.html" %}
+  <h1 class="hero__name" id="name">Rémy Delorme</h1>
+  <p class="hero__tagline">Builds things. Red wine slightly cool. Arrived recently.</p>
+  <div class="hero__bio">{{ section.content | safe }}</div>
+</section>
+
+{#-
+  Physics hook (planned, not built).
+  The interactive piece mounts here, between the hero and the notes.
+  Rules for whoever builds it:
+    - Script lives in static/js/ and loads with `defer` from the block below.
+    - It must be decorative or optional: the page stays complete with JS off.
+    - Honour prefers-reduced-motion by starting still.
+  Override or fill `physics` to add the mount point and script tag.
+-#}
+{% block physics %}{% endblock physics %}
+
+{%- set notes = get_section(path="notes/_index.md") %}
+<section class="section wrap" aria-labelledby="latest">
+  <h2 class="section__title" id="latest">Notes</h2>
+  <ul class="notes">
+    {%- for page in notes.pages[:4] %}
+    <li>{{<note page={page} level={3} />}}</li>
+    {%- endfor %}
+  </ul>
+  <p class="section__more"><a href="{{ notes.permalink | safe }}">All notes</a></p>
+</section>
+
+<section class="band" aria-labelledby="workshop">
+  <div class="wrap">
+    <h2 class="band__title" id="workshop">Workshop</h2>
+    <p>Nothing finished. Several things started.</p>
+    <a class="button" href="{{ get_url(path='@/workshop/_index.md') }}">Enter the workshop</a>
+  </div>
+</section>
+{% endblock content %}
