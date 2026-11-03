@@ -2,10 +2,8 @@
 
 {% block content %}
 <section class="hero wrap" aria-labelledby="name">
-  {% include "partials/sunburst.html" %}
-  <h1 class="hero__name" id="name">Rémy Delorme</h1>
-  <p class="hero__tagline">Builds things. Red wine slightly cool. Arrived recently.</p>
-  <div class="hero__bio">{{ section.content | safe }}</div>
+  <h1 class="vh" id="name">Rémy Delorme</h1>
+  <div class="hero__tagline">{{ section.content | safe }}</div>
 </section>
 
 {#-

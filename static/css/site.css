@@ -188,31 +188,15 @@ a:hover { color: var(--ivory); }
 /* Hero */
 .hero {
   text-align: center;
-  padding-block: 56px 40px;
-}
-.sunburst {
-  width: min(100%, 560px);
-  margin: 0 auto 32px;
-}
-.sunburst__rays line,
-.sunburst__arcs path {
-  stroke: var(--brass);
-  stroke-width: 2;
-  fill: none;
-}
-.sunburst__disc,
-.sunburst__base { fill: var(--brass); }
-.hero__name {
-  font-size: var(--size-name);
-  margin-bottom: 0.25em;
+  padding-block: 64px 24px;
 }
 .hero__tagline {
   font-style: italic;
   font-size: var(--size-note);
   margin: 0 auto 0.75em;
-  max-width: 32ch;
+  max-width: 34ch;
 }
-.hero__bio { max-width: 48ch; margin-inline: auto; }
+.hero__tagline p:last-child { margin-bottom: 0; }
 
 /* Sections */
 .section {
