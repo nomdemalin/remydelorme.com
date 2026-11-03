@@ -1,0 +1,18 @@
+base_url = "https://remydelorme.com"
+title = "Rémy Delorme"
+description = "Builds things."
+default_language = "en"
+
+compile_sass = false
+build_search_index = false
+minify_html = true
+
+# Atom is enabled per section; only Notes turns it on.
+generate_feeds = false
+feed_filenames = ["atom.xml"]
+
+[markdown]
+smart_punctuation = false
+
+[extra]
+version = "0.1.0"
