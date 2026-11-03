@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{% if page.extra.numeral %}{{ page.extra.numeral }}. {% endif %}{{ page.title }} · {{ config.title }}{% endblock %}
+{% block description %}{{ (page.description or page.summary or config.description) | striptags | trim }}{% endblock %}
+{% block canonical %}{{ page.permalink | safe }}{% endblock %}
+
+{% block content %}
+<div class="section wrap">
+  {%- if page.extra.numeral %}
+  <div class="single">
+    {{<note page={page} level={1} link={false} />}}
+    <p class="back"><a href="{{ get_url(path='@/notes/_index.md') }}">All notes</a></p>
+  </div>
+  {%- else %}
+  <article class="prose">
+    <h1 class="section__title">{{ page.title }}</h1>
+    {{ page.content | safe }}
+  </article>
+  {%- endif %}
+</div>
+{% endblock content %}

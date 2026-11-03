@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock %}
+{% block description %}{{ section.description or config.description }}{% endblock %}
+{% block canonical %}{{ section.permalink | safe }}{% endblock %}
+
+{% block content %}
+<section class="section wrap">
+  <h1 class="section__title">{{ section.title }}</h1>
+  <div class="section__intro">{{ section.content | safe }}</div>
+  {%- if section.pages %}
+  <ul class="notes">
+    {%- for page in section.pages %}
+    <li>{{<note page={page} level={2} />}}</li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+  {%- if section.generate_feeds %}
+  <p class="section__more"><a href="{{ get_url(path=section.path ~ 'atom.xml') }}">Atom feed</a></p>
+  {%- endif %}
+</section>
+{% endblock content %}
