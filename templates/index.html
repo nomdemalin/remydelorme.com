@@ -4,8 +4,9 @@
 {% <masthead label="Doc. no. RD-000 / Home" title="Builds things." voice="Red wine slightly cool. Arrived recently."> %}
   {{<datasheet rows={[
     {"label": "Subject", "value": "Rémy Delorme"},
-    {"label": "Service temp", "value": "Slightly cool"},
-    {"label": "Questions", "value": "None"},
+    {"label": "Service temp", "value": "Slightly cool. Correct."},
+    {"label": "Opinions", "value": "Many. Mostly right."},
+    {"label": "Questions", "value": "None, merci."},
   ]} />}}
 {% </masthead> %}
 
@@ -18,7 +19,7 @@
     {%- endfor %}
   </ul>
   <div class="row row--single row--link blk">
-    <div class="cell"><a href="{{ notes.permalink | safe }}">All records in Section A</a></div>
+    <div class="cell"><a href="{{ notes.permalink | safe }}">All records in Section A. Take your time.</a></div>
   </div>
 </section>
 
@@ -26,7 +27,7 @@
   {{<sectionbar code="B" name="Workshop" id="sec-b" />}}
   <div class="row row--line blk">
     <p class="cell voice">Nothing finished. Several things started.</p>
-    <p class="cell status">STATUS: IN PROGRESS</p>
+    <p class="cell status">STATUS: IN PROGRESS. DO NOT RUSH ME.</p>
   </div>
 </section>
 

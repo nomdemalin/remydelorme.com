@@ -5,9 +5,9 @@
 {% block canonical %}{{ config.base_url }}/404.html{% endblock %}
 
 {% block content %}
-{% <masthead label="Doc. no. RD-404 / Not on file" title="Not on file." voice="Nothing at this address. I checked twice."> %}
+{% <masthead label="Doc. no. RD-404 / Not on file" title="Not on file." voice="Nothing at this address. You typed it wrong, I suspect."> %}
   {{<datasheet rows={[
-    {"label": "Status", "value": "Missing"},
+    {"label": "Status", "value": "Missing. Not my doing."},
     {"label": "Action", "value": '<a href="' ~ config.base_url ~ '/">Return to RD-000</a>'},
   ]} />}}
 {% </masthead> %}

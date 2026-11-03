@@ -10,12 +10,12 @@
   {%- if section.generate_feeds %}
   {{<datasheet rows={[
     {"label": "Records", "value": section.pages | length},
-    {"label": "Order", "value": "Newest first"},
-    {"label": "Feed", "value": '<a href="' ~ get_url(path=section.path ~ 'atom.xml') ~ '">Atom</a>'},
+    {"label": "Order", "value": "Newest first. As it should be."},
+    {"label": "Feed", "value": '<a href="' ~ get_url(path=section.path ~ 'atom.xml') ~ '">Atom</a>. The better one.'},
   ]} />}}
   {%- else %}
   {{<datasheet rows={[
-    {"label": "Entries", "value": section.pages | length},
+    {"label": "Entries", "value": (section.pages | length) ~ ", for now"},
     {"label": "Status", "value": section.extra.status},
   ]} />}}
   {%- endif %}

@@ -1,17 +1,17 @@
 +++
 title = "Colophon"
-description = "How this site is made."
+description = "How this site is made. You did ask."
 
 [extra]
 code = "C"
 rows = [
-  { label = "Format", value = "Plain files, built ahead of time" },
-  { label = "Type", value = "Archivo, Roboto Mono, Cormorant Garamond" },
-  { label = "Fonts served from", value = "Here. Nowhere else." },
-  { label = "Tracking", value = "None" },
-  { label = "Cookies", value = "None" },
-  { label = "Feed", value = "[Atom](/notes/atom.xml)" },
+  { label = "Format", value = "Plain files. No database, no nonsense." },
+  { label = "Type", value = "Archivo, Roboto Mono, Cormorant Garamond. Chosen with care." },
+  { label = "Fonts served from", value = "Here. Nowhere else, évidemment." },
+  { label = "Tracking", value = "None. I am not that curious." },
+  { label = "Cookies", value = "None. Have a madeleine instead." },
+  { label = "Feed", value = "[Atom](/notes/atom.xml). The superior format." },
 ]
 +++
 
-How this is made. Briefly.
+How it is made. You did ask.
