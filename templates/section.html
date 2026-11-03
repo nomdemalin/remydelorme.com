@@ -5,18 +5,35 @@
 {% block canonical %}{{ section.permalink | safe }}{% endblock %}
 
 {% block content %}
-<section class="section wrap">
-  <h1 class="section__title">{{ section.title }}</h1>
-  <div class="section__intro">{{ section.content | safe }}</div>
+{%- set code = section.extra.code %}
+{% <masthead label={"Doc. no. " ~ code ~ " / " ~ section.title} title={section.title}> %}
+  {%- if section.generate_feeds %}
+  {{<datasheet rows={[
+    {"label": "Records", "value": section.pages | length},
+    {"label": "Order", "value": "Newest first"},
+    {"label": "Feed", "value": '<a href="' ~ get_url(path=section.path ~ 'atom.xml') ~ '">Atom</a>'},
+  ]} />}}
+  {%- else %}
+  {{<datasheet rows={[
+    {"label": "Entries", "value": section.pages | length},
+    {"label": "Status", "value": section.extra.status},
+  ]} />}}
+  {%- endif %}
+{% </masthead> %}
+
+<section aria-labelledby="sec">
+  {{<sectionbar code={code} name={section.title} id="sec" />}}
   {%- if section.pages %}
-  <ul class="notes">
+  <ul class="rows">
     {%- for page in section.pages %}
-    <li>{{<note page={page} level={2} />}}</li>
+    {{<record page={page} />}}
     {%- endfor %}
   </ul>
-  {%- endif %}
-  {%- if section.generate_feeds %}
-  <p class="section__more"><a href="{{ get_url(path=section.path ~ 'atom.xml') }}">Atom feed</a></p>
+  {%- else %}
+  <div class="row row--line blk">
+    <div class="cell voice">{{ section.content | striptags | trim }}</div>
+    <p class="cell status">STATUS: {{ section.extra.status | upper }}</p>
+  </div>
   {%- endif %}
 </section>
 {% endblock content %}

@@ -8,7 +8,7 @@
   <author><name>{{ config.title }}</name></author>
   {%- for page in pages %}
   <entry>
-    <title>{% if page.extra.numeral %}{{ page.extra.numeral }}. {% endif %}{{ page.title }}</title>
+    <title>{% if page.extra.doc_id %}{{ page.extra.doc_id }} {% endif %}{{ page.title }}</title>
     <published>{{ page.date | date(format="%Y-%m-%dT%H:%M:%SZ") }}</published>
     <updated>{{ (page.updated or page.date) | date(format="%Y-%m-%dT%H:%M:%SZ") }}</updated>
     <link rel="alternate" type="text/html" href="{{ page.permalink | safe }}"/>
