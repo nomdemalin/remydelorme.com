@@ -1,0 +1,40 @@
+{#- Form building blocks. Components are global in Tera 2; no import needed. -#}
+
+{#- Title block: label, h1, optional voice line; the body fills the side cell. -#}
+{% component masthead(label, title, voice="") %}
+<div class="mast blk">
+  <div class="mast__main">
+    <p class="label">{{ label }}</p>
+    <h1>{{ title }}</h1>
+    {%- if voice %}
+    <p class="voice">{{ voice }}</p>
+    {%- endif %}
+  </div>
+  <div class="mast__side">{{ body | safe }}</div>
+</div>
+{% endcomponent masthead %}
+
+{#- Data sheet. Each row is a map with `label` and `value`; values may hold links. -#}
+{% component datasheet(rows) %}
+<dl class="data">
+  {%- for row in rows %}
+  <div class="data__row"><dt>{{ row.label }}</dt><dd>{{ row.value | safe }}</dd></div>
+  {%- endfor %}
+</dl>
+{% endcomponent datasheet %}
+
+{% component sectionbar(code, name, id) %}
+<div class="section-bar blk">
+  <span class="diamond" aria-hidden="true"></span>
+  <h2 id="{{ id }}">Section {{ code }}: {{ name }}</h2>
+</div>
+{% endcomponent sectionbar %}
+
+{#- One filed note: ID, text, status. -#}
+{% component record(page) %}
+<li class="row blk">
+  <div class="cell record__id"><a href="{{ page.permalink | safe }}">{{ page.extra.doc_id }}<span class="vh">: {{ page.title }}</span></a></div>
+  <div class="cell record__text">{{ page.content | safe }}</div>
+  <div class="cell record__status">{{ page.extra.status or "FILED" }}</div>
+</li>
+{% endcomponent record %}
