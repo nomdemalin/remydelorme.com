@@ -1,38 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="hero wrap" aria-labelledby="name">
-  <h1 class="vh" id="name">Rémy Delorme</h1>
-  <div class="hero__tagline">{{ section.content | safe }}</div>
+{% <masthead label="Doc. no. RD-000 / Home" title="Builds things." voice="Red wine slightly cool. Arrived recently."> %}
+  {{<datasheet rows={[
+    {"label": "Subject", "value": "Rémy Delorme"},
+    {"label": "Service temp", "value": "Slightly cool"},
+    {"label": "Questions", "value": "None"},
+  ]} />}}
+{% </masthead> %}
+
+{%- set notes = get_section(path="notes/_index.md") %}
+<section aria-labelledby="sec-a">
+  {{<sectionbar code="A" name="Notes" id="sec-a" />}}
+  <ul class="rows">
+    {%- for page in notes.pages[:4] %}
+    {{<record page={page} />}}
+    {%- endfor %}
+  </ul>
+  <div class="row row--single row--link blk">
+    <div class="cell"><a href="{{ notes.permalink | safe }}">All records in Section A</a></div>
+  </div>
+</section>
+
+<section aria-labelledby="sec-b">
+  {{<sectionbar code="B" name="Workshop" id="sec-b" />}}
+  <div class="row row--line blk">
+    <p class="cell voice">Nothing finished. Several things started.</p>
+    <p class="cell status">STATUS: IN PROGRESS</p>
+  </div>
 </section>
 
 {#-
-  Physics hook (planned, not built).
-  The interactive piece mounts here, between the hero and the notes.
+  Section D: Apparatus (planned, not built).
+  The interactive physics piece goes here, after Section B, as its own block:
+    <section aria-labelledby="sec-d">
+      {{<sectionbar code="D" name="Apparatus" id="sec-d" />}}
+      <div class="row row--single blk"><div class="cell"> mount point </div></div>
+    </section>
   Rules for whoever builds it:
-    - Script lives in static/js/ and loads with `defer` from the block below.
-    - It must be decorative or optional: the page stays complete with JS off.
-    - Honour prefers-reduced-motion by starting still.
-  Override or fill `physics` to add the mount point and script tag.
+    - Script lives in static/js/ and loads with `defer`.
+    - Optional by design: the page stays complete with JS off.
+    - Starts still, and stays still under prefers-reduced-motion.
 -#}
-{% block physics %}{% endblock physics %}
-
-{%- set notes = get_section(path="notes/_index.md") %}
-<section class="section wrap" aria-labelledby="latest">
-  <h2 class="section__title" id="latest">Notes</h2>
-  <ul class="notes">
-    {%- for page in notes.pages[:4] %}
-    <li>{{<note page={page} level={3} />}}</li>
-    {%- endfor %}
-  </ul>
-  <p class="section__more"><a href="{{ notes.permalink | safe }}">All notes</a></p>
-</section>
-
-<section class="band" aria-labelledby="workshop">
-  <div class="wrap">
-    <h2 class="band__title" id="workshop">Workshop</h2>
-    <p>Nothing finished. Several things started.</p>
-    <a class="button" href="{{ get_url(path='@/workshop/_index.md') }}">Enter the workshop</a>
-  </div>
-</section>
 {% endblock content %}
