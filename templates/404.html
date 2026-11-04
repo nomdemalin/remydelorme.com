@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block title %}RD-404 · Not on file · {{ config.title }}{% endblock %}
-{% block description %}Not on file.{% endblock %}
+{% block description %}RD-404. Not on file.{% endblock %}
 {% block canonical %}{{ config.base_url }}/404.html{% endblock %}
 
 {% block content %}
-{% <masthead label="Doc. no. RD-404 / Not on file" title="Not on file." voice="Nothing at this address. You typed it wrong, I suspect."> %}
-  {{<datasheet rows={[
-    {"label": "Status", "value": "Missing. Not my doing."},
-    {"label": "Action", "value": '<a href="' ~ config.base_url ~ '/">Return to RD-000</a>'},
-  ]} />}}
-{% </masthead> %}
+<section aria-labelledby="title">
+  {#- A static page cannot know the path asked for, so it says so. #}
+  {{<prompt cmd="cat ./whatever-you-typed" />}}
+  <h1 class="lost" id="title">RD-404. Not on file.</h1>
+  <p class="back"><span class="prompt" aria-hidden="true"><b>$</b></span><a href="{{ config.base_url }}/">cd ~</a></p>
+</section>
+{{<cursor />}}
 {% endblock content %}
