@@ -6,7 +6,7 @@ description = "How this site is made. You did ask."
 code = "C"
 rows = [
   { label = "Format", value = "Plain files. No database, no nonsense." },
-  { label = "Type", value = "Archivo, Roboto Mono, Cormorant Garamond. Chosen with care." },
+  { label = "Type", value = "JetBrains Mono, Archivo, Cormorant Garamond. Chosen with care." },
   { label = "Fonts served from", value = "Here. Nowhere else, évidemment." },
   { label = "Tracking", value = "None. I am not that curious." },
   { label = "Cookies", value = "None. Have a madeleine instead." },
