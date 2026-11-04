@@ -1,46 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% <masthead label="Doc. no. RD-000 / Home" title="Builds things." voice="Red wine slightly cool. Arrived recently."> %}
-  {{<datasheet rows={[
-    {"label": "Subject", "value": "Rémy Delorme"},
-    {"label": "Service temp", "value": "Slightly cool. Correct."},
-    {"label": "Opinions", "value": "Many. Mostly right."},
-    {"label": "Questions", "value": "None, merci."},
-  ]} />}}
-{% </masthead> %}
+<section aria-labelledby="name">
+  {{<prompt cmd="whoami" />}}
+  <h1 class="name" id="name">Rémy Delorme</h1>
+  {{<prompt cmd="cat tagline" />}}
+  <p class="voice tagline">Builds things. Red wine slightly cool. Arrived recently.</p>
+</section>
 
 {%- set notes = get_section(path="notes/_index.md") %}
-<section aria-labelledby="sec-a">
-  {{<sectionbar code="A" name="Notes" id="sec-a" />}}
+<section aria-labelledby="sec-notes">
+  <h2 class="sr-only" id="sec-notes">Notes</h2>
+  {{<prompt cmd="ls notes/" />}}
   <ul class="rows">
     {%- for page in notes.pages[:4] %}
     {{<record page={page} />}}
     {%- endfor %}
   </ul>
-  <div class="row row--single row--link blk">
-    <div class="cell"><a href="{{ notes.permalink | safe }}">All records in Section A. Take your time.</a></div>
-  </div>
+  <p class="more"><a href="{{ notes.permalink | safe }}">all {{ notes.pages | length }} notes</a></p>
 </section>
 
-<section aria-labelledby="sec-b">
-  {{<sectionbar code="B" name="Workshop" id="sec-b" />}}
-  <div class="row row--line blk">
-    <p class="cell voice">Nothing finished. Several things started.</p>
-    <p class="cell status">STATUS: IN PROGRESS. DO NOT RUSH ME.</p>
-  </div>
+{%- set workshop = get_section(path="workshop/_index.md") %}
+<section aria-labelledby="sec-workshop">
+  <h2 class="sr-only" id="sec-workshop">Workshop</h2>
+  {{<prompt cmd="ls workshop/" />}}
+  <p class="muted">total {{ workshop.pages | length }}</p>
+  {%- if workshop.pages %}
+  <ul class="rows">
+    {%- for page in workshop.pages %}
+    {{<record page={page} />}}
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="voice">Nothing finished. Several things started.</p>
+  {%- endif %}
 </section>
 
 {#-
-  Section D: Apparatus (planned, not built).
-  The interactive physics piece goes here, after Section B, as its own block:
-    <section aria-labelledby="sec-d">
-      {{<sectionbar code="D" name="Apparatus" id="sec-d" />}}
-      <div class="row row--single blk"><div class="cell"> mount point </div></div>
+  Planned: the interactive physics pane ("$ ./apparatus"). Not built yet.
+  When it lands, it goes here as its own section inside the window:
+    <section aria-labelledby="sec-apparatus">
+      <h2 class="sr-only" id="sec-apparatus">Apparatus</h2>
+      {{<prompt cmd="./apparatus" />}}
+      <div class="apparatus"> mount point </div>
     </section>
   Rules for whoever builds it:
     - Script lives in static/js/ and loads with `defer`.
     - Optional by design: the page stays complete with JS off.
     - Starts still, and stays still under prefers-reduced-motion.
 -#}
+
+<section aria-labelledby="sec-exit">
+  <h2 class="sr-only" id="sec-exit">Closing</h2>
+  {{<prompt cmd="exit" />}}
+  <p>No further questions.</p>
+  {{<cursor />}}
+</section>
 {% endblock content %}
