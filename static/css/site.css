@@ -231,6 +231,17 @@ main:focus { outline: none; }
 
 .lost { font-family: var(--mono); font-size: 0.9375rem; font-weight: 500; }
 
+/* 404 only: the window has drifted off into space */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  shape-rendering: crispEdges;
+}
+
 /* Status bar */
 .statusbar {
   display: flex;

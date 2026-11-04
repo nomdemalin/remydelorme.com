@@ -6,7 +6,11 @@
 
 {% block head %}<script src="{{ get_url(path='js/404.js') }}" defer></script>{% endblock %}
 
+{% block temp %}-455F slightly cool{% endblock %}
+
 {% block content %}
+{#- Off the map: the window drifts in space. #}
+{% include "partials/starfield.html" %}
 <section aria-labelledby="title">
   {#- static/js/404.js fills in the path asked for; without JS the placeholder stays. #}
   <p class="prompt" aria-hidden="true"><b>$</b>cat <span id="asked">./whatever-you-typed</span></p>
