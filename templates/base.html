@@ -13,6 +13,7 @@
   <link rel="icon" href="{{ get_url(path='favicon.svg') }}" type="image/svg+xml">
   <link rel="alternate" type="application/atom+xml" title="Notes" href="{{ get_url(path='notes/atom.xml') }}">
   <link rel="canonical" href="{% block canonical %}{{ config.base_url }}/{% endblock %}">
+  {% block head %}{% endblock %}
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
