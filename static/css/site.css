@@ -241,6 +241,19 @@ main:focus { outline: none; }
   max-width: none;
   shape-rendering: crispEdges;
 }
+/* The one exception to "no motion": a slow drift, brighter (nearer) stars travel further.
+   Reduced-motion users keep the still sky. */
+@media (prefers-reduced-motion: no-preference) {
+  .starfield path { animation: drift 70s ease-in-out infinite alternate; }
+  .starfield path:nth-child(1) { --dx: -6px; --dy: 2px; animation-duration: 90s; }
+  .starfield path:nth-child(2) { --dx: -10px; --dy: 3px; animation-duration: 80s; }
+  .starfield path:nth-child(3) { --dx: -14px; --dy: 5px; animation-duration: 70s; }
+  .starfield path:nth-child(4) { --dx: -20px; --dy: 7px; animation-duration: 60s; }
+  .starfield path:nth-child(5) { --dx: -24px; --dy: 8px; animation-duration: 55s; }
+}
+@keyframes drift {
+  to { transform: translate(var(--dx), var(--dy)); }
+}
 
 /* Status bar */
 .statusbar {
