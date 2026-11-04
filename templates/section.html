@@ -3,26 +3,16 @@
 {% block title %}{{ section.title }} · {{ config.title }}{% endblock %}
 {% block description %}{{ section.description or config.description }}{% endblock %}
 {% block canonical %}{{ section.permalink | safe }}{% endblock %}
+{% block cwd %}~{{ section.path | trim_end(pat="/") }}{% endblock %}
 
 {% block content %}
-{%- set code = section.extra.code %}
-{% <masthead label={"Doc. no. " ~ code ~ " / " ~ section.title} title={section.title}> %}
-  {%- if section.generate_feeds %}
-  {{<datasheet rows={[
-    {"label": "Records", "value": section.pages | length},
-    {"label": "Order", "value": "Newest first. As it should be."},
-    {"label": "Feed", "value": '<a href="' ~ get_url(path=section.path ~ 'atom.xml') ~ '">Atom</a>. The better one.'},
-  ]} />}}
-  {%- else %}
-  {{<datasheet rows={[
-    {"label": "Entries", "value": (section.pages | length) ~ ", for now"},
-    {"label": "Status", "value": section.extra.status},
-  ]} />}}
+{%- set dir = section.path | trim_start(pat="/") %}
+<section aria-labelledby="title">
+  <h1 class="sr-only" id="title">{{ section.title }}</h1>
+  {{<prompt cmd={"ls " ~ dir} />}}
+  {%- if not section.generate_feeds %}
+  <p class="muted">total {{ section.pages | length }}</p>
   {%- endif %}
-{% </masthead> %}
-
-<section aria-labelledby="sec">
-  {{<sectionbar code={code} name={section.title} id="sec" />}}
   {%- if section.pages %}
   <ul class="rows">
     {%- for page in section.pages %}
@@ -30,10 +20,11 @@
     {%- endfor %}
   </ul>
   {%- else %}
-  <div class="row row--line blk">
-    <div class="cell voice">{{ section.content | striptags | trim }}</div>
-    <p class="cell status">STATUS: {{ section.extra.status | upper }}</p>
-  </div>
+  <p class="voice">{{ section.content | striptags | trim }}</p>
+  {%- endif %}
+  {%- if section.generate_feeds %}
+  <p class="more muted">feed: <a href="{{ get_url(path=section.path ~ 'atom.xml') }}">atom.xml</a></p>
   {%- endif %}
 </section>
+{{<cursor />}}
 {% endblock content %}

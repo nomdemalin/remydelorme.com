@@ -3,40 +3,31 @@
 {% block title %}{% if page.extra.doc_id %}{{ page.extra.doc_id }} · {% endif %}{{ page.title }} · {{ config.title }}{% endblock %}
 {% block description %}{{ (page.description or page.summary or page.content or config.description) | striptags | trim }}{% endblock %}
 {% block canonical %}{{ page.permalink | safe }}{% endblock %}
+{% block cwd %}~{% if page.extra.doc_id %}/notes{% endif %}{% endblock %}
 
 {% block content %}
 {%- if page.extra.rows %}
-{#- A form page, such as the colophon: rows come from front matter. -#}
-{%- set code = page.extra.code %}
-{% <masthead label={"Doc. no. " ~ code ~ " / " ~ page.title} title={page.title} voice={page.content | striptags | trim}> %}
-  {{<datasheet rows={[{"label": "Version", "value": config.extra.version}]} />}}
-{% </masthead> %}
-<section aria-labelledby="sec">
-  {{<sectionbar code={code} name={page.title} id="sec" />}}
-  <div class="blk">
-    {{<datasheet rows={[
-      {"label": row.label, "value": row.value | markdown(inline=true)} for row in page.extra.rows
-    ]} />}}
-  </div>
+{#- A listing page, such as the colophon: rows come from front matter. -#}
+<section aria-labelledby="title">
+  <h1 class="sr-only" id="title">{{ page.title }}</h1>
+  {{<prompt cmd={"cat " ~ page.slug ~ ".md"} />}}
+  <p class="voice">{{ page.content | striptags | trim }}</p>
+  <dl class="listing">
+    {%- for row in page.extra.rows %}
+    <div><dt>{{ row.label }}</dt><dd class="voice">{{ row.value | markdown(inline=true) | safe }}</dd></div>
+    {%- endfor %}
+    <div><dt>Version</dt><dd class="voice">{{ config.extra.version }}. It goes up.</dd></div>
+  </dl>
 </section>
 {%- else %}
 {#- A filed note. -#}
-{%- set id = page.extra.doc_id %}
-{% <masthead label={"Doc. no. " ~ id ~ " / " ~ page.title} title={page.title}> %}
-  {{<datasheet rows={[
-    {"label": "Doc. ID", "value": id},
-    {"label": "Filed", "value": page.date | date(format="%-d %B %Y")},
-    {"label": "Status", "value": page.extra.status or "FILED"},
-  ]} />}}
-{% </masthead> %}
-<section aria-labelledby="sec">
-  {{<sectionbar code="A" name="Notes" id="sec" />}}
-  <div class="row row--single blk">
-    <div class="cell record__text">{{ page.content | safe }}</div>
-  </div>
-  <div class="row row--single row--link blk">
-    <div class="cell"><a href="{{ get_url(path='@/notes/_index.md') }}">Return to Section A: Notes</a></div>
-  </div>
+<section aria-labelledby="title">
+  <h1 class="sr-only" id="title">{{ page.extra.doc_id }}: {{ page.title }}</h1>
+  {{<prompt cmd={"cat notes/" ~ page.slug ~ ".md"} />}}
+  <p class="meta">{{ page.extra.doc_id }} · {{ page.date | date(format="%-d %B %Y") }} · {{ page.extra.status or "filed" }}</p>
+  <div class="voice">{{ page.content | safe }}</div>
+  <p class="back"><span class="prompt" aria-hidden="true"><b>$</b></span><a href="{{ get_url(path='@/notes/_index.md') }}">cd notes/</a></p>
 </section>
 {%- endif %}
+{{<cursor />}}
 {% endblock content %}
