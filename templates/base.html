@@ -28,6 +28,7 @@
         <span class="titlebar__version">v{{ config.extra.version }}</span>
       </div>
       <nav class="tabs" aria-label="Main">
+        <a class="tabs__home" aria-label="Home" href="{{ get_url(path='@/_index.md') }}"{% if here == "/" %} aria-current="page"{% endif %}>~<span class="tabs__label">home</span></a>
         <a href="{{ get_url(path='@/notes/_index.md') }}"{% if here is starting_with(pat="/notes/") %} aria-current="page"{% endif %}>A notes</a>
         <a href="{{ get_url(path='@/workshop/_index.md') }}"{% if here is starting_with(pat="/workshop/") %} aria-current="page"{% endif %}>B workshop</a>
         <a href="{{ get_url(path='@/colophon.md') }}"{% if here is starting_with(pat="/colophon/") %} aria-current="page"{% endif %}>C colophon</a>

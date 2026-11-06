@@ -148,6 +148,8 @@ main:focus { outline: none; }
   color: var(--text);
 }
 .tabs a:focus-visible { outline-offset: -4px; }
+.tabs a.tabs__home { min-width: 48px; justify-content: center; }
+.tabs__label { margin-left: 1ch; }
 
 .screen {
   padding: var(--pad);
@@ -274,5 +276,11 @@ main:focus { outline: none; }
   .record__status { text-align: left; }
   .record__id a { margin-block: -10px 0; }
   .record { gap: 6px 0; }
-  .tabs a { padding: 0 10px; }
+  body { padding: 12px; }
+  .tabs a { padding: 0 8px; }
+  /* "~" alone on narrow screens; the word stays for screen readers */
+  .tabs__label {
+    position: absolute; width: 1px; height: 1px; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
 }
