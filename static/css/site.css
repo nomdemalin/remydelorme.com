@@ -217,6 +217,8 @@ main:focus { outline: none; }
 
 /* Single note */
 .meta { color: var(--muted); font-size: 0.875rem; }
+.voice p + p { margin-top: 0.4em; }
+.voice img { display: block; width: 100%; height: auto; margin: 0.5em 0; }
 
 /* Key / value listing (colophon) */
 .listing { border-top: 1px solid var(--hairline); }
